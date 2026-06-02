@@ -1,8 +1,26 @@
+.navigation__container {
+  border-bottom: 0.5px solid var(--border-container);
+}
+
 .navigation {
   width: 100%;
-  margin: 24px 0;
-  padding: 23px 40px;
-  border: 0.5px solid var(--border);
-  border-radius: 32px;
-  background: var(--white);
+  border-left: 0.5px solid var(--border-container);
+  border-right: 0.5px solid var(--border-container);
+}
+
+.navigation__row {
+  padding: 24px 20px;
+}
+
+.logo {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.logo:hover {
+  color: var(--accent);
 }

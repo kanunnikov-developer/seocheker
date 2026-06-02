@@ -1,12 +1,11 @@
 .form_container {
+  width: 500px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 40px;
   height: 100%;
-  padding: 40px;
+  gap: 24px;
+  padding: 20px;
   border-radius: 24px;
-  background: var(--white);
   color: var(--dark);
 }
 
@@ -20,12 +19,12 @@
   display: block;
   font-weight: 500;
   color: var(--dark);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .input {
   width: 100%;
-  padding: 17px 19px;
+  padding: 16px 19px;
   font-size: 16px;
   font-family: inherit;
   border: 1px solid var(--border);
@@ -47,28 +46,34 @@
 .errorText {
   color: var(--error);
   font-size: 12px;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 /* Кнопка отпавки  */
 
 .button {
   width: 100%;
-  padding: 17px 19px;
+  padding: 16px 19px;
   background: var(--accent);
   color: #fff;
-  border: none;
+  border: 1px solid var(--accent);
   border-radius: 16px;
   font-family: inherit;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 300;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .button:disabled {
   background: #cbd7e5;
   color: #7b8ca6;
   cursor: not-allowed;
+}
+
+.button:not(:disabled):hover {
+  background: var(--background);
+  color: var(--accent);
 }
 
 /* Поле для ввода ключевых слов */
@@ -162,4 +167,13 @@
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 4px rgba(51, 102, 255, 0.12);
+}
+
+.response {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--placeholder);
 }

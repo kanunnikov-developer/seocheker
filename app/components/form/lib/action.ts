@@ -17,46 +17,62 @@ export async function Action(prevState: any, formData: FormData) {
 
   const { domain, keyword, location } = validate.data;
 
+  let allOrganicResults: any[] = [];
+  let position = 0;
+  const MAX_PAGES = 3;
+
   try {
-    const response = await fetch("https://google.serper.dev/search", {
-      method: "POST",
-      headers: {
-        "X-API-KEY": process.env.SERPER_API_KEY!,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        q: keyword,
-        gl: "ru",
-        hl: "ru",
-        location: location,
-      }),
-    });
+    for (let page = 1; page <= MAX_PAGES; page++) {
+      const response = await fetch("https://google.serper.dev/search", {
+        method: "POST",
+        headers: {
+          "X-API-KEY": "d16da4600de6f8d1e133904ed3cab7eab4bd3b34",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          q: keyword,
+          gl: "ru",
+          hl: "ru",
+          location: location,
+          page: page,
+        }),
+      });
 
-    if (!response.ok) {
-      throw new Error(`Ошибка отправки запроса на Serper API: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`Ошибка Serper API на странице ${page}: ${response.status}`);
+      }
+
+      const searchData = await response.json();
+      const pageOrganic = searchData.organic || [];
+
+      if (pageOrganic.length === 0) break;
+
+      const formattedPageResults = pageOrganic.map((item: any, index: number) => ({
+        position: (page - 1) * 10 + (index + 1),
+        title: item.title,
+        link: item.link,
+        snippet: item.snippet,
+      }));
+
+      allOrganicResults = [...allOrganicResults, ...formattedPageResults];
+
+      const foundItem = formattedPageResults.find((item: any) => item.link.toLowerCase().includes(domain));
+
+      // Если нашли сайт — фиксируем сквозную позицию и останавливаем цикл (break)
+      if (foundItem) {
+        position = foundItem.position;
+        break;
+      }
     }
-
-    const searchData = await response.json();
-    const organicResults = searchData.organic || [];
-
-    const foundIndex = organicResults.findIndex((item: any) => item.link.toLowerCase().includes(domain));
-
-    const position = foundIndex !== -1 ? foundIndex + 1 : 0;
-    const formattedOrganic = organicResults.map((item: any, index: number) => ({
-      position: index + 1,
-      title: item.title,
-      link: item.link,
-      snippet: item.snippet,
-    }));
 
     return {
       success: true,
       data: {
         domain,
         keyword,
-        position,
         location,
-        organicResults: formattedOrganic,
+        position,
+        organicResults: allOrganicResults,
       },
     };
   } catch (error) {

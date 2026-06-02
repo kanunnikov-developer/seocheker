@@ -1,74 +1,111 @@
-.hero {
-  padding: 40px;
-  background: linear-gradient(180deg, rgba(33, 89, 255, 1) 15%, rgba(152, 177, 255, 1) 95%);
-  color: var(--white);
-  border-radius: 32px;
+.hero__container {
+  border-bottom: 0.5px solid var(--border-container);
 }
 
-.content {
+.hero {
+  position: relative;
+  width: 100%;
+  border-left: 0.5px solid var(--border-container);
+  border-right: 0.5px solid var(--border-container);
+}
+
+.hero__row {
+  position: relative;
+  padding: 56px 20px;
   display: flex;
   justify-content: space-between;
   gap: 80px;
+  z-index: 1;
+}
+
+.bg_image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 0;
 }
 
 .left {
+  position: relative;
+  flex: 1;
   max-width: 660px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 40px;
 }
 
 .blubor {
-  max-width: fit-content;
+  display: inline-block;
+  width: fit-content;
   padding: 12px 18px;
-  border: 1px solid rgba(246, 246, 246, 0.15);
-  background: var(--light-bg-white);
-  border-radius: 24px;
-  margin-bottom: 24px;
+  color: var(--accent);
+  border: 1px solid var(--border-accent);
+  border-radius: 100px;
+  background: var(--light-accent);
+  font-size: 14px;
 }
 
 .title {
-  margin-bottom: 40px;
+  margin-top: 24px;
 }
 
 .description {
-  max-width: 400px;
-  font-size: 24px;
-  font-weight: 300;
+  margin-top: 32px;
+  font-size: 20px;
+  font-weight: 400;
   line-height: 120%;
-  color: var(--light-white);
+  color: var(--foreground);
+  white-space: pre-line;
 }
 
-.left_advantages {
-  width: 100%;
+.clicker {
+  position: absolute;
+  top: 200px;
+  left: 180px;
+}
+
+.adventures {
+  margin-top: 48px;
   display: flex;
-  justify-content: space-between;
-  gap: 24px;
+  align-items: center;
+  gap: 32px;
 }
 
-.advantages {
-  flex: 1;
+.adventure {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px;
+  background: var(--input-background);
+  border: 1px solid var(--border-accent);
+  border-radius: 8px;
+}
+
+.adventure__text {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 22px 24px;
-  background: var(--light-bg-white);
-  border: 1px solid rgba(246, 246, 246, 0.15);
-  border-radius: 24px;
+  gap: 6px;
 }
 
-.advantages_title {
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 100%;
+.adventure__text h3 {
+  font-weight: 500;
+  font-size: 18px;
 }
 
-.advantages_text {
+.adventure__text span {
+  font-size: 14px;
   font-weight: 300;
-  line-height: 120%;
+  color: var(--foreground);
 }
 
 .right {
-  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
